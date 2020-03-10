@@ -1,0 +1,18 @@
+.gradle
+build/
+out/
+
+#Logs
+logs/
+*.log
+*.jks
+*.pem
+*.crt
+*.p12
+
+# IntelliJ
+.idea/
+*.iml
+
+# Testing
+.kotlintest
