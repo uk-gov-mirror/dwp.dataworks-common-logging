@@ -1,6 +1,35 @@
 # dataworks-common-logging
 Kotlin utility library to be used in Dataworks applications to ensure common logging format.
 
+## Using in your project
+JAR files for this project are published to this repositories [GitHub Packages page](https://github.com/dwp/dataworks-common-logging/packages). To include it in your project, follow the [official github instructions](https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-gradle-for-use-with-github-packages). Configuration should look similar to the below.
+
+#### Inclusion via Gradle
+```kotlin
+repositories {
+    maven {
+        name = "GitHubPackages"
+        url = uri("https://maven.pkg.github.com/dwp/dataworks-common-logging")
+        credentials {
+            username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
+            password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
+        }
+    }
+}
+```
+Where `gpr.user` or `USERNAME` resolves to your GH username and `gpr.key` or `TOKEN` resolves to a GH PAT code. 
+
+#### Logger configuration
+To utilise this library in your project, you will need to include the compiled this projects`.jar` file. You are also required to add a logback XML file in the resources for your project, and add the following code as an `appender`. This will inform the logging framework to use `LoggerLayoutAppender` to parse messages into our format.
+```xml
+<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+    <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
+        <layout class="app.utils.logging.LoggerLayoutAppender"/>
+    </encoder>
+</appender>
+```
+
 ## Log formatting
 Dataworks common logging provides opinionated ways to write messages into log files, using [sl4j](http://www.slf4j.org/).
 
@@ -14,17 +43,6 @@ Out of the box, it provides functionality to convert log messages to JSON and ap
 | component      | read-from-x    |
 | correlation_id | 1              |
 | hostname       | 127.0.0.1      |
-
-## Using in projects
-To include this library in your project you will need to include the compiled this projects`.jar` file. You are also required to add a logback XML file in the resources for your project, and add the following code as an `appender`. This will inform the logging framework to use `LoggerLayoutAppender` to parse messages into our format.
-```xml
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
-        <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
-            <layout class="app.utils.logging.LoggerLayoutAppender"/>
-        </encoder>
-    </appender>
-```
 
 ## Custom fields in log messages
 For the case where you would like to add custom values to the logging lines which are output, `LogFields` provides functionality to do this.
@@ -118,4 +136,3 @@ Some example outputs are displayed below. Note that in actuality these will be o
   "hostname": "127.0.0.1"
 }
 ```
- 
