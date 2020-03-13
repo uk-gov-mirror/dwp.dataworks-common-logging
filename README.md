@@ -1,3 +1,5 @@
+[![dwp](https://circleci.com/gh/dwp/dataworks-common-logging.svg?style=shield)](https://app.circleci.com/pipelines/github/dwp/dataworks-common-logging)
+
 # dataworks-common-logging
 Kotlin utility library to be used in Dataworks applications to ensure common logging format.
 
@@ -17,7 +19,7 @@ repositories {
     }
 }
 ```
-Where `gpr.user` or `USERNAME` resolves to your GH username and `gpr.key` or `TOKEN` resolves to a GH PAT code. 
+Where `gpr.user` or `USERNAME` resolves to your GitHub username and `gpr.key` or `TOKEN` resolves to a GitHub PAT code with the `read:packages` privilege.
 
 #### Logger configuration
 To utilise this library in your project, you will need to include the compiled this projects`.jar` file. You are also required to add a logback XML file in the resources for your project, and add the following code as an `appender`. This will inform the logging framework to use `LoggerLayoutAppender` to parse messages into our format.
