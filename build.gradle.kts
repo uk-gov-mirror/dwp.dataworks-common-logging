@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.3.21"
-    `maven-publish`
+    maven
 }
 
 group = "uk.gov.dwp.dataworks"
@@ -10,24 +10,6 @@ group = "uk.gov.dwp.dataworks"
 repositories {
     mavenCentral()
     jcenter()
-}
-
-publishing {
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/dwp/dataworks-common-logging")
-            credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USERNAME")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
-    publications    {
-        register("gpr", MavenPublication::class) {
-            from(components["java"])
-        }
-    }
 }
 
 configurations.all {

@@ -113,22 +113,6 @@ jobs:
               -c ${CIRCLE_SHA1} -delete \
               ${VERSION} ./artifacts/
 
-  publish-github-package:
-    docker:
-      - image: circleci/openjdk:11.0.3-jdk-stretch
-    steps:
-      - checkout
-      - run:
-          name: Run gradle publish
-          command: |
-            set -u
-            set +o pipefail
-            LATEST_VERSION=$(curl --silent "https://api.github.com/repos/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-            set -o pipefail
-            [  -z "$LATEST_VERSION" ] && LATEST_VERSION="0.0.0"
-            VERSION=$(echo $LATEST_VERSION | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
-            ./gradlew publish
-
 workflows:
   version: 2
   build-and-deploy:
@@ -146,12 +130,6 @@ workflows:
       - publish-github-release:
           requires:
             - build
-          filters:
-            branches:
-              only: master
-      - publish-github-package:
-          requires:
-            - publish-github-release
           filters:
             branches:
               only: master

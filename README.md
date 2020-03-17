@@ -1,25 +1,22 @@
 [![dwp](https://circleci.com/gh/dwp/dataworks-common-logging.svg?style=shield)](https://app.circleci.com/pipelines/github/dwp/dataworks-common-logging)
-
+[![Release](https://jitpack.io/v/dwp/dataworks-common-logging.svg)](https://jitpack.io/#dwp/dataworks-common-logging)
 # dataworks-common-logging
 Kotlin utility library to be used in Dataworks applications to ensure common logging format.
 
 ## Using in your project
-JAR files for this project are published to this repositories [GitHub Packages page](https://github.com/dwp/dataworks-common-logging/packages). To include it in your project, follow the [official github instructions](https://help.github.com/en/packages/using-github-packages-with-your-projects-ecosystem/configuring-gradle-for-use-with-github-packages). Configuration should look similar to the below.
+JAR files for this project are published as releases to the project's [GitHub page](https://github.com/dwp/dataworks-common-logging/releases).
 
 #### Inclusion via Gradle
+To include the dependnecy via Gradle we recommend using the [Jitpack project](https://jitpack.io/docs/). Simply add the following to your `build.gradle` file.
 ```kotlin
 repositories {
-    maven {
-        name = "GitHubPackages"
-        url = uri("https://maven.pkg.github.com/dwp/dataworks-common-logging")
-        credentials {
-            username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-            password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
-        }
-    }
+    maven(url = "https://jitpack.io")
+}
+dependencies {
+    implementation("com.github.dwp:dataworks-common-logging:<VERSION>")
 }
 ```
-Where `gpr.user` or `USERNAME` resolves to your GitHub username and `gpr.key` or `TOKEN` resolves to a GitHub PAT code with the `read:packages` privilege.
+Where `VERSION` is replaced with the [release](https://github.com/dwp/dataworks-common-logging/releases) version to be used.
 
 #### Logger configuration
 To utilise this library in your project, you will need to include the compiled this projects`.jar` file. You are also required to add a logback XML file in the resources for your project, and add the following code as an `appender`. This will inform the logging framework to use `LoggerLayoutAppender` to parse messages into our format.
