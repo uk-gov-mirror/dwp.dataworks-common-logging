@@ -12,7 +12,7 @@ class DataworksLoggerTest {
         DataworksLogger(mockLogger).debug("main-message", "key1" to "value1", "key2" to "value2")
 
         verify(mockLogger, times(1)).isDebugEnabled
-        verify(mockLogger, times(1)).debug("\"main-message\", \"key1\":\"value1\", \"key2\":\"value2\"")
+        verify(mockLogger, times(1)).debug("main-message\", \"key1\":\"value1\", \"key2\":\"value2\"")
         verifyNoMoreInteractions(mockLogger)
     }
 
@@ -24,7 +24,7 @@ class DataworksLoggerTest {
         DataworksLogger(mockLogger).info("main-message", "key1" to "value1", "key2" to "value2")
 
         verify(mockLogger, times(1)).isInfoEnabled
-        verify(mockLogger, times(1)).info("\"main-message\", \"key1\":\"value1\", \"key2\":\"value2\"")
+        verify(mockLogger, times(1)).info("main-message\", \"key1\":\"value1\", \"key2\":\"value2\"")
         verifyNoMoreInteractions(mockLogger)
     }
 
@@ -36,7 +36,7 @@ class DataworksLoggerTest {
         DataworksLogger(mockLogger).error("main-message", "key1" to "value1", "key2" to "value2")
 
         verify(mockLogger, times(1)).isErrorEnabled
-        verify(mockLogger, times(1)).error("\"main-message\", \"key1\":\"value1\", \"key2\":\"value2\"")
+        verify(mockLogger, times(1)).error("main-message\", \"key1\":\"value1\", \"key2\":\"value2\"")
         verifyNoMoreInteractions(mockLogger)
     }
 
@@ -49,7 +49,7 @@ class DataworksLoggerTest {
         DataworksLogger(mockLogger).error("main-message", exception, "key1" to "value1", "key2" to "value2")
 
         verify(mockLogger, times(1)).isErrorEnabled
-        verify(mockLogger, times(1)).error(eq("\"main-message\", \"key1\":\"value1\", \"key2\":\"value2\""), same(exception))
+        verify(mockLogger, times(1)).error(eq("main-message\", \"key1\":\"value1\", \"key2\":\"value2\""), same(exception))
         verifyNoMoreInteractions(mockLogger)
     }
 }

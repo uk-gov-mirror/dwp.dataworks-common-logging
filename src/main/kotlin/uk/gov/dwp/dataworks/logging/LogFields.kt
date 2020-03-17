@@ -14,7 +14,7 @@ object LogFields {
     var asJson = asJson()
 
     private fun asJson(): String {
-        return logFields.map { """"${it.key}":"${it.value}"""" }.joinToString(separator = ", ")
+        return logFields.map { "\"${it.key}\":\"${it.value}\"" }.joinToString(separator = ", ")
     }
 
     fun get(logField: String): String {

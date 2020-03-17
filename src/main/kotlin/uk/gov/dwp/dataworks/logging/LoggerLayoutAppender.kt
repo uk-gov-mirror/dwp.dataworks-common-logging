@@ -25,7 +25,7 @@ import ch.qos.logback.core.LayoutBase
  * ```
  * Note that they may not be in the same order.
  */
-object LoggerLayoutAppender : LayoutBase<ILoggingEvent>() {
+class LoggerLayoutAppender : LayoutBase<ILoggingEvent>() {
 
     private var start_time_milliseconds = System.currentTimeMillis()
 
@@ -38,6 +38,10 @@ object LoggerLayoutAppender : LayoutBase<ILoggingEvent>() {
         if (event == null) {
             return ""
         }
-        return """{"timestamp":"${epochToUTCString(event.timeStamp)}", "log_level":"${event.level}", "message":${flattenString(event.formattedMessage)}, ${throwableProxyEventToJsonKeyPair(event)}"thread":"${event.threadName}", "logger":"${event.loggerName}", "duration_in_milliseconds":"${getDurationInMilliseconds(event.timeStamp)}", ${LogFields.asJson}}"""
+        val formattedTimestamp = epochToUTCString(event.timeStamp)
+        val formattedMessage = flattenString(event.formattedMessage).trim('"')
+        val formattedException = throwableProxyEventToJsonKeyPair(event)
+        val formattedDuration = getDurationInMilliseconds(event.timeStamp)
+        return """{"timestamp":"$formattedTimestamp", "log_level":"${event.level}", "message":"$formattedMessage", $formattedException"thread":"${event.threadName}", "logger":"${event.loggerName}", "duration_in_milliseconds":"$formattedDuration", ${LogFields.asJson}}"""
     }
 }

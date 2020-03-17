@@ -14,18 +14,18 @@ import org.junit.jupiter.api.Test
 class LoggingUtilsTest {
     @Test
     fun `semiFormattedTuples will format as partial JSON without matching key-value pairs`() {
-        assertThat("\"my-message\"").isEqualTo(semiFormattedTuples("my-message"))
+        assertThat("my-message").isEqualTo(semiFormattedTuples("my-message"))
     }
 
     @Test
     fun `semiFormattedTuples will format as partial JSON with matching key-value pairs`() {
-        assertThat("\"my-message\", \"key1\":\"value1\", \"key2\":\"value2\"")
+        assertThat("my-message\", \"key1\":\"value1\", \"key2\":\"value2\"")
             .isEqualTo(semiFormattedTuples("my-message", "key1" to "value1", "key2" to "value2"))
     }
 
     @Test
     fun `semiFormattedTuples will escape JSON in message and Tuple values`() {
-        assertThat("\"message-\\/:'!@\\u00A3\$%^&*()\\n\\t\\r\", \"key-unchanged\":\"value-\\/:!@\\u00A3\$%^&*()\\n\\t\\r\"")
+        assertThat("message-\\/:'!@\\u00A3\$%^&*()\\n\\t\\r\", \"key-unchanged\":\"value-\\/:!@\\u00A3\$%^&*()\\n\\t\\r\"")
             .isEqualTo(semiFormattedTuples("message-/:'!@£\$%^&*()\n\t\r", "key-unchanged" to "value-/:!@£\$%^&*()\n\t\r"))
     }
 
