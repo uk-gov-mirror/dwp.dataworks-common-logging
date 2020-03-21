@@ -42,6 +42,7 @@ class LoggerLayoutAppender : LayoutBase<ILoggingEvent>() {
         val formattedMessage = flattenString(event.formattedMessage).trim('"')
         val formattedException = throwableProxyEventToJsonKeyPair(event)
         val formattedDuration = getDurationInMilliseconds(event.timeStamp)
-        return """{"timestamp":"$formattedTimestamp", "log_level":"${event.level}", "message":"$formattedMessage", $formattedException"thread":"${event.threadName}", "logger":"${event.loggerName}", "duration_in_milliseconds":"$formattedDuration", ${LogFields.asJson}}"""
+        val result =  """{"timestamp":"$formattedTimestamp", "log_level":"${event.level}", "message":"$formattedMessage", $formattedException"thread":"${event.threadName}", "logger":"${event.loggerName}", "duration_in_milliseconds":"$formattedDuration", ${LogFields.asJson}}"""
+        return "$result\n"
     }
 }
