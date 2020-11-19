@@ -119,14 +119,14 @@ workflows:
     jobs:
       - build
       - test
-      - snyk-pr:
-          filters:
-            branches:
-              ignore: master
-      - snyk-master:
-          filters:
-            branches:
-              only: master
+#      - snyk-pr:
+#          filters:
+#            branches:
+#              ignore: master
+#      - snyk-master:
+#          filters:
+#            branches:
+#              only: master
       - publish-github-release:
           requires:
             - build
