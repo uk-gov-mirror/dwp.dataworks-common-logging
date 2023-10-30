@@ -1,3 +1,5 @@
+# DO NOT USE THIS REPO - MIGRATED TO GITLAB
+
 [![dwp](https://circleci.com/gh/dwp/dataworks-common-logging.svg?style=shield)](https://app.circleci.com/pipelines/github/dwp/dataworks-common-logging)
 [![Release](https://jitpack.io/v/dwp/dataworks-common-logging.svg)](https://jitpack.io/#dwp/dataworks-common-logging)
 # dataworks-common-logging
